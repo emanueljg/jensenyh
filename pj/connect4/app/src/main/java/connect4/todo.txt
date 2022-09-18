@@ -1,7 +1,0 @@
-! colors
-* Look through *ALL* classes - fix stuff
-
-* More menus?
-
-* README
-* Final: commit
