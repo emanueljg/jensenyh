@@ -1,0 +1,11 @@
+DONE ! fix hashmap order
+! colors
+* Look through *ALL* classes - fix stuff
+
+* Fix Prompter shortcuts 
+* More menus?
+* Board private member names
+* docs? probably not
+
+* README
+* Final: commit

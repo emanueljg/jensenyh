@@ -1,0 +1,12 @@
+package ons31aug;
+
+interface Problems {
+	public static int inputInt(String question);
+	public static int inputInt(String question, int min);
+	public static int inputInt(String question, int min, int max);
+
+	public static double inputDouble(String question);
+	public static double inputInt(String question, int min);
+	public static double inputInt(String question, int min, int max);
+	public static int age(String birthDate);
+}
