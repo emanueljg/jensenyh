@@ -13,7 +13,7 @@ public class HumanPlayer extends AbstractPlayer {
         do {
             col = new Prompter.Builder<Integer>(
                 String.format(
-                    "Column to drop brick in (1-%d): ", getCols()))
+                    "Column to drop brick in (1-%d)", getCols()))
                 .mapper(x -> Integer.parseInt(x) - 1)
                 .mappedChecker(x -> x >= 0 && x < getCols())
                 .prompt();
