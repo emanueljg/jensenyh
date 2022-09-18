@@ -22,58 +22,58 @@ import org.junit.jupiter.api.DisplayName;
 import mån29aug.Solutions;
 
 class SolutionsTest {
-	private String getCachedOutputFromFile(String fileName) {
-		StringBuilder output = new StringBuilder();	
-	  	InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
-	  	Scanner in = new Scanner(is);
-	  	while (in.hasNext()) {
-	    	output.append(in.nextLine());
-	    	output.append("\n");
-	  	}
-	  	in.close();
-	  	return output.toString();
+    private String getCachedOutputFromFile(String fileName) {
+        StringBuilder output = new StringBuilder(); 
+        InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+        Scanner in = new Scanner(is);
+        while (in.hasNext()) {
+            output.append(in.nextLine());
+            output.append("\n");
+        }
+        in.close();
+        return output.toString();
     }
 
-	@Test
-	@DisplayName("check cached 1-100 fizzbuzz")
-	void testFizzBuzzCached() {
-		String cache = getCachedOutputFromFile("fizzBuzz.txt");
-		assertEquals(cache, Solutions.fizzBuzz());
-	}
+    @Test
+    @DisplayName("check cached 1-100 fizzbuzz")
+    void testFizzBuzzCached() {
+        String cache = getCachedOutputFromFile("fizzBuzz.txt");
+        assertEquals(cache, Solutions.fizzBuzz());
+    }
 
-	private static int trueLuckySkyscraperRealToFake(int real) {
+    private static int trueLuckySkyscraperRealToFake(int real) {
         int fake = 0;
-		for (int i = 1; i <= real; i++){
+        for (int i = 1; i <= real; i++){
               fake++;
               while (fake % 10 == 4 || fake % 100 == 13) {
                   fake++;
               }
         }
-		return fake;	
-	}
+        return fake;    
+    }
 
-	private static Stream<Arguments> trueLuckySkyscraperRealToFakeArgs() {
-		return IntStream
-			     .rangeClosed(1, 1000)
-				 .mapToObj(real -> 
-						   Arguments.of(real, 
-							    	    trueLuckySkyscraperRealToFake(real)
-								       )
-					      ); 
-	}
+    private static Stream<Arguments> trueLuckySkyscraperRealToFakeArgs() {
+        return IntStream
+                 .rangeClosed(1, 1000)
+                 .mapToObj(real -> 
+                           Arguments.of(real, 
+                                        trueLuckySkyscraperRealToFake(real)
+                                       )
+                          ); 
+    }
 
-	@ParameterizedTest
-	@MethodSource
-	void trueLuckySkyscraperRealToFakeArgs(int input,
-										   int expected) {
-		assertEquals(expected, Solutions.realToFake(input));
-	}
+    @ParameterizedTest
+    @MethodSource
+    void trueLuckySkyscraperRealToFakeArgs(int input,
+                                           int expected) {
+        assertEquals(expected, Solutions.realToFake(input));
+    }
 
-	private static int trueLuckySkyscraperFakeToReal(int fake) throws IllegalArgumentException {
-		int real = 0;
+    private static int trueLuckySkyscraperFakeToReal(int fake) throws IllegalArgumentException {
+        int real = 0;
 
-		if (fake % 10 == 4 || fake % 100 == 13){
-			throw new IllegalArgumentException("Fake number can't be unlucky");
+        if (fake % 10 == 4 || fake % 100 == 13){
+            throw new IllegalArgumentException("Fake number can't be unlucky");
         } else {
             int fakeReached = 0;
             for (int i = 1; i <= fake; i++) {
@@ -82,77 +82,77 @@ class SolutionsTest {
                     fakeReached++;
                 }
                 if (fakeReached == fake) {
-					real = i;
-					break;
+                    real = i;
+                    break;
                 }
             }
         }
-		if (real == 0) throw new IllegalArgumentException("The fake " 
-														  + fake + 
-														  "somehow gave no suitable real");
-		return real;
+        if (real == 0) throw new IllegalArgumentException("The fake " 
+                                                          + fake + 
+                                                          "somehow gave no suitable real");
+        return real;
 
-	}
+    }
 
-	private static Stream<Arguments> trueLuckySkyscraperFakeToRealArgs() {
-		return IntStream
-			     .rangeClosed(1, 1000)
-				 .filter(fake -> !(fake % 10 == 4 || fake % 100 == 13))
-				 .mapToObj(fake -> 
-						   Arguments.of(fake, 
-							    	    trueLuckySkyscraperFakeToReal(fake)
-								       )
-					      ); 
-	}
+    private static Stream<Arguments> trueLuckySkyscraperFakeToRealArgs() {
+        return IntStream
+                 .rangeClosed(1, 1000)
+                 .filter(fake -> !(fake % 10 == 4 || fake % 100 == 13))
+                 .mapToObj(fake -> 
+                           Arguments.of(fake, 
+                                        trueLuckySkyscraperFakeToReal(fake)
+                                       )
+                          ); 
+    }
 
-	@ParameterizedTest
-	@MethodSource
-	void trueLuckySkyscraperFakeToRealArgs(int input,
-								     	   int expected) {
-		assertEquals(expected, Solutions.fakeToReal(input));
-	}
+    @ParameterizedTest
+    @MethodSource
+    void trueLuckySkyscraperFakeToRealArgs(int input,
+                                           int expected) {
+        assertEquals(expected, Solutions.fakeToReal(input));
+    }
 
-	@Test
-	void testLuckySkyscraperFakeToRealThrowsOn4() {
-		assertThrows(IllegalArgumentException.class, () -> Solutions.fakeToReal(142154));
-	}
+    @Test
+    void testLuckySkyscraperFakeToRealThrowsOn4() {
+        assertThrows(IllegalArgumentException.class, () -> Solutions.fakeToReal(142154));
+    }
 
-	@Test
-	void testLuckySkyscraperFakeToRealThrowsOn13() {
-		assertThrows(IllegalArgumentException.class, () -> Solutions.fakeToReal(142113));
-	}
+    @Test
+    void testLuckySkyscraperFakeToRealThrowsOn13() {
+        assertThrows(IllegalArgumentException.class, () -> Solutions.fakeToReal(142113));
+    }
 
-	private static int trueRiceGrainBoard(int grains) throws IllegalArgumentException {
-		int foundSquare = 0;
+    private static int trueRiceGrainBoard(int grains) throws IllegalArgumentException {
+        int foundSquare = 0;
         long grainsToPutInSquare = 1;
         long totalGrainsOnBoard = 0;
         for (int square = 1; square < 8 * 8; square++){
             totalGrainsOnBoard += grainsToPutInSquare;
             if(totalGrainsOnBoard >= grains){
-				foundSquare = square;
+                foundSquare = square;
                 break;
             }
             grainsToPutInSquare *= 2;
         }
-		if (foundSquare == 0) throw new IllegalArgumentException("invalid grains amount.");
-		return foundSquare;
-	}
+        if (foundSquare == 0) throw new IllegalArgumentException("invalid grains amount.");
+        return foundSquare;
+    }
 
-	private static Stream<Arguments> trueRiceGrainBoard() {
-		return IntStream
-			     .rangeClosed(1, 200) // checks up to 7 squares but less than 8
-				 .mapToObj(grains -> 
-						   Arguments.of(grains, 
-							    	    trueRiceGrainBoard(grains)
-								       )
-					      ); 
-	}
+    private static Stream<Arguments> trueRiceGrainBoard() {
+        return IntStream
+                 .rangeClosed(1, 200) // checks up to 7 squares but less than 8
+                 .mapToObj(grains -> 
+                           Arguments.of(grains, 
+                                        trueRiceGrainBoard(grains)
+                                       )
+                          ); 
+    }
 
-	@ParameterizedTest
-	@MethodSource
-	void trueRiceGrainBoard(int input,
-						    int expected) {
-		assertEquals(expected, Solutions.riceGrainBoard(input));
-	}
+    @ParameterizedTest
+    @MethodSource
+    void trueRiceGrainBoard(int input,
+                            int expected) {
+        assertEquals(expected, Solutions.riceGrainBoard(input));
+    }
 
 }

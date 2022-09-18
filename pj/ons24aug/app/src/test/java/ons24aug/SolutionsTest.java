@@ -18,38 +18,38 @@ import ons24aug.Solutions;
 class SolutionsTest {
       private String getTimesFromFile(String fileName) {
 
-	  StringBuilder times = new StringBuilder();	
-	  InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
-	  Scanner in = new Scanner(is);
+      StringBuilder times = new StringBuilder();    
+      InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+      Scanner in = new Scanner(is);
 
-	  while (in.hasNext()) {
-	      times.append(in.nextLine());
-	      times.append("\n");
-	  }
+      while (in.hasNext()) {
+          times.append(in.nextLine());
+          times.append("\n");
+      }
 
-	  in.close();
-	 
+      in.close();
+     
           return times.toString();
     }
 
     @Test
     @DisplayName("get the clock")
     void testGetTheClock() {
-	String theClock = getTimesFromFile("getTheClock.txt");
-	assertEquals(theClock, Solutions.getTheClock());
+    String theClock = getTimesFromFile("getTheClock.txt");
+    assertEquals(theClock, Solutions.getTheClock());
     }
 
     @Test
     @DisplayName("get the clock with seconds")
     void testGetTheClockWithSeconds() {
-	String theClockWithSeconds = getTimesFromFile("getTheClockWithSeconds.txt");
-	assertEquals(theClockWithSeconds, Solutions.getTheClockWithSeconds());
+    String theClockWithSeconds = getTimesFromFile("getTheClockWithSeconds.txt");
+    assertEquals(theClockWithSeconds, Solutions.getTheClockWithSeconds());
     }
 
     @Test 
     @DisplayName("reverse an empty string")
     void testGetReversedEmptyString() {
-	System.out.println(System.getProperty("user.dir"));
+    System.out.println(System.getProperty("user.dir"));
         assertEquals("", Solutions.getReversed(""));
     }
 
@@ -68,179 +68,179 @@ class SolutionsTest {
     @Test
     @DisplayName("reverse an uppercase word")
     void testGetReversedUppercase() {
-	assertEquals("BAR", Solutions.getReversed("RAB"));
+    assertEquals("BAR", Solutions.getReversed("RAB"));
     }
 
     @Test
     @DisplayName("reverse a mix-cased word")
     void testGetReversedMixedcase() {
-	assertEquals("RaBoOf", Solutions.getReversed("fOoBaR"));
+    assertEquals("RaBoOf", Solutions.getReversed("fOoBaR"));
     }
 
     @Test
     @DisplayName("check empty string for word palindrome")
     void testIsWordPalindromeEmptyString() {
-	assertTrue(Solutions.isWordPalindrome(""));
+    assertTrue(Solutions.isWordPalindrome(""));
     }
 
     @Test
     @DisplayName("check simple palindrome for word palindrome")
     void testIsWordPalindromeEasyPalindrome() {
-	assertTrue(Solutions.isWordPalindrome("racecar"));
+    assertTrue(Solutions.isWordPalindrome("racecar"));
     }
 
     @Test
     @DisplayName("check mix-cased palindrome for word palindrome")
     void testIsWordPalindromeMixedCasePalindrome() {
-	assertTrue(Solutions.isWordPalindrome("RaCeCaR"));
+    assertTrue(Solutions.isWordPalindrome("RaCeCaR"));
     }
 
     @Test
     @DisplayName("check simple non-palindrome for word palindrome")
     void testIsWordPalindromeEasyNonPalindrome() {
-	assertFalse(Solutions.isWordPalindrome("foo"));
+    assertFalse(Solutions.isWordPalindrome("foo"));
     }
 
     @Test
     @DisplayName("check mixed-case palindrome for sentence palindrome")
     void testIsSentencePalindromeMixedCasePalindrome() {
-	assertTrue(Solutions.isSentencePalindrome("Sirap i Paris"));
+    assertTrue(Solutions.isSentencePalindrome("Sirap i Paris"));
     }
 
     @Test
     @DisplayName("check mixed chars palindrome for sentence palindrome")
     void testIsSentencePalindromeMixedCharsPalindrome() {
-	assertTrue(Solutions.isSentencePalindrome("Du har bra hud."));
+    assertTrue(Solutions.isSentencePalindrome("Du har bra hud."));
     }
 
     @Test
     @DisplayName("check non-palindrome for sentence palindrome")
     void testIsSentencePalindromeNonPalindrome() {
-	assertFalse(Solutions.isSentencePalindrome("Du har en bra hund."));
+    assertFalse(Solutions.isSentencePalindrome("Du har en bra hund."));
     }
 
     @Test
     @DisplayName("translate an empty string to piratespeak")
     void testToPirateSpeakEmptyString() {
-	assertEquals("", Solutions.toPirateSpeak(""));
+    assertEquals("", Solutions.toPirateSpeak(""));
     }
 
     @Test
     @DisplayName("translate a vowel to piratespeak")
     void testToPirateSpeakVowel() {
-	assertEquals("a", Solutions.toPirateSpeak("a"));
+    assertEquals("a", Solutions.toPirateSpeak("a"));
     }
 
     @Test
     @DisplayName("translate a consonant to piratespeak")
     void testToPirateSpeakConsonant() {
-	assertEquals("kok", Solutions.toPirateSpeak("k"));
+    assertEquals("kok", Solutions.toPirateSpeak("k"));
     }
 
     @Test
     @DisplayName("translate the alphabet to piratespeak")
     void testToPirateSpeakAlphabet() {
-	assertEquals(
-	    "abobcocdodefofgoghohijojkoklolmomnonopopqoqrorsostotuvovwowxoxyzozåäö", 
-	    Solutions.toPirateSpeak("abcdefghijklmnopqrstuvwxyzåäö")
-	);
+    assertEquals(
+        "abobcocdodefofgoghohijojkoklolmomnonopopqoqrorsostotuvovwowxoxyzozåäö", 
+        Solutions.toPirateSpeak("abcdefghijklmnopqrstuvwxyzåäö")
+    );
     }
 
     @Test
     @DisplayName("translate a normal sentence to piratespeak")
     void testToPirateSpeakNormalSentence() {
-	assertEquals(
-	    "Jojagog totalolaror rorövovarorsospoproråkoketot", 
-	    Solutions.toPirateSpeak("Jag talar rövarspråket")
-	);
+    assertEquals(
+        "Jojagog totalolaror rorövovarorsospoproråkoketot", 
+        Solutions.toPirateSpeak("Jag talar rövarspråket")
+    );
     }
 
     @Test
     @DisplayName("translate an empty string from piratespeak")
     void testFromPirateSpeakEmptyString() {
-	assertEquals("", Solutions.fromPirateSpeak(""));
+    assertEquals("", Solutions.fromPirateSpeak(""));
     }
 
     @Test
     @DisplayName("translate a vowel from piratespeak")
     void testFromPirateSpeakVowel() {
-	assertEquals("a", Solutions.fromPirateSpeak("a"));
+    assertEquals("a", Solutions.fromPirateSpeak("a"));
     }
 
     @Test
     @DisplayName("translate a consonant from piratespeak")
     void testFromPirateSpeakConsonant() {
-	assertEquals("b", Solutions.fromPirateSpeak("b"));
+    assertEquals("b", Solutions.fromPirateSpeak("b"));
     }
 
     @Test
     @DisplayName("translate a vowel + o + vowel from piratespeak")
     void testFromPirateVowelOVowel() {
-	assertEquals("aoa", Solutions.fromPirateSpeak("aoa"));
+    assertEquals("aoa", Solutions.fromPirateSpeak("aoa"));
     }
 
     @Test
     @DisplayName("translate a consonant + o + consonant from piratespeak")
     void testFromPirateConsonantOCOnsonant() {
-	assertEquals("b", Solutions.fromPirateSpeak("bob"));
+    assertEquals("b", Solutions.fromPirateSpeak("bob"));
     }
 
     @Test
     @DisplayName("translate the alphabet from piratespeak")
     void testFromPirateAlphabet() {
-	assertEquals(
-	    "abcdefghijklmnopqrstuvwxyzåäö", 
-	    Solutions.fromPirateSpeak(
-		"abobcocdodefofgoghohijojkoklolmomnonopopqoqrorsostotuvovwowxoxyzozåäö"
-	    )
-	);
+    assertEquals(
+        "abcdefghijklmnopqrstuvwxyzåäö", 
+        Solutions.fromPirateSpeak(
+        "abobcocdodefofgoghohijojkoklolmomnonopopqoqrorsostotuvovwowxoxyzozåäö"
+        )
+    );
     }
 
     @Test
     @DisplayName("translate a normal sentence from piratespeak")
     void testFromPirateSpeakNormalSentence() {
-	assertEquals(
-	    "Jag talar rövarspråket",
-	    Solutions.fromPirateSpeak(
-		"Jojagog totalolaror rorövovarorsospoproråkoketot"
-	    )
-	);
+    assertEquals(
+        "Jag talar rövarspråket",
+        Solutions.fromPirateSpeak(
+        "Jojagog totalolaror rorövovarorsospoproråkoketot"
+        )
+    );
     }
 
     @Test
     @DisplayName("calulate an empty string")
     void testParseCalculationEmptyString() {
-	assertEquals(0, Solutions.parseCalculation(""));
+    assertEquals(0, Solutions.parseCalculation(""));
     }
 
     @Test
     @DisplayName("calulate 2+2")
     void testParseCalculationTwoPlusTwo() {
-	assertEquals(4, Solutions.parseCalculation("2+2"));
+    assertEquals(4, Solutions.parseCalculation("2+2"));
     }
 
     @Test
     @DisplayName("calulate big number addition with spaces")
     void testParseCalculationBigNumberWithSpaces() {
-	assertEquals(456123, Solutions.parseCalculation(" 456000+      123    "));
+    assertEquals(456123, Solutions.parseCalculation(" 456000+      123    "));
     }
 
     @Test
     @DisplayName("calulate 100 - 200")
     void testParseCalculationTwoHundredMinusOneHundred() {
-	assertEquals(-100, Solutions.parseCalculation(" 100 - 200 "));
+    assertEquals(-100, Solutions.parseCalculation(" 100 - 200 "));
     }
 
     @Test
     @DisplayName("calculate 20 * 5")
     void testParseCalculationTwentyTimesFive() {
-	assertEquals(100, Solutions.parseCalculation("20*5"));
+    assertEquals(100, Solutions.parseCalculation("20*5"));
     }
     
     @Test
     @DisplayName("calculate 100 / 3")
     void testParseCalculationHundredDividedByThree() {
-	assertEquals(33, Solutions.parseCalculation("100/3"));
+    assertEquals(33, Solutions.parseCalculation("100/3"));
     }
 }
     

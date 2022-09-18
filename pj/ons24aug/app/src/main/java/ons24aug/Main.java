@@ -9,18 +9,18 @@ import ons24aug.Solutions;
 public class Main {
 
     private static void printer(Function<String, Object> solution) {
-	Scanner in = new Scanner(System.in);
-	String str = in.nextLine();
-	in.close();
-	System.out.println(solution.apply(str)); 
+    Scanner in = new Scanner(System.in);
+    String str = in.nextLine();
+    in.close();
+    System.out.println(solution.apply(str)); 
     }
 
     private static void printer(Supplier<Object> solution) {
-	System.out.println(solution.get());
+    System.out.println(solution.get());
     }
-	
+    
     public static void main(String[] args) {
-	printer(Solutions::getTheClockWithSeconds);
+    printer(Solutions::getTheClockWithSeconds);
     }
 }
 

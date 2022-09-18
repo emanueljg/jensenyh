@@ -19,9 +19,9 @@ public class Solutions {
                                             .collect(Collectors.joining());
 
     private static Pattern piratePattern = Pattern.compile(
-		    				String.format("([%s])o\\1", consonantsStr),
-						Pattern.CASE_INSENSITIVE
-					  );
+                            String.format("([%s])o\\1", consonantsStr),
+                        Pattern.CASE_INSENSITIVE
+                      );
 
     private static Pattern calculatorPattern = Pattern.compile(" *(\\d+) *([-+*/]) *(\\d+) *");
 
@@ -108,10 +108,10 @@ public class Solutions {
                                     
                               );
             if (mirroredCh != ch) { 
-		return false;
+        return false;
             }
         }
-	return true;
+    return true;
     }
     
     public static boolean isSentencePalindrome(String str) {
@@ -121,20 +121,20 @@ public class Solutions {
                 letters.append(ch);
             }
         }
-	return isWordPalindrome(letters.toString());
+    return isWordPalindrome(letters.toString());
     }
     
     public static String toPirateSpeak(String str) {
         StringBuilder pirateSpeak = new StringBuilder();
         for (char ch : str.toCharArray()) {
-	    // doing the character cases like this solves
-	    // the issue of capital letters at the
-	    // beginning of sentences messing up
-	    // eg: we want
-	    // Joj totalolaror
-	    // and not
-	    // JoJ totalolaror 
-	    char loweredCh = Character.toLowerCase(ch);
+        // doing the character cases like this solves
+        // the issue of capital letters at the
+        // beginning of sentences messing up
+        // eg: we want
+        // Joj totalolaror
+        // and not
+        // JoJ totalolaror 
+        char loweredCh = Character.toLowerCase(ch);
             if (consonants.contains(loweredCh)) {
                 pirateSpeak.append(ch);
                 pirateSpeak.append('o');
@@ -143,11 +143,11 @@ public class Solutions {
                 pirateSpeak.append(ch);
             }
         }        
-	return pirateSpeak.toString();
+    return pirateSpeak.toString();
     }
     
     public static String fromPirateSpeak(String str) {
-	return piratePattern.matcher(str).replaceAll("$1");
+    return piratePattern.matcher(str).replaceAll("$1");
     }
     
     public static int parseCalculation(String str) {
@@ -167,7 +167,7 @@ public class Solutions {
                     return a / b;
             }
         }
-	return 0;
+    return 0;
     }
 
     public static void main(String[] args) {

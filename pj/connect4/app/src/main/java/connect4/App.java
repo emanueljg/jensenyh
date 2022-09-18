@@ -4,8 +4,8 @@ package connect4;
 
 public class App {
     public static void main(String[] args) {
-		//Board2 b = new Board2(1, 1);
-		//System.out.println(b.c());
-		Game.doMainMenu();
+        //Board2 b = new Board2(1, 1);
+        //System.out.println(b.c());
+        Game.doMainMenu();
     }
 }
