@@ -151,11 +151,6 @@ public class Board {
                 drawing.append(inPurple("XXXX"));
             } else if (cell.getPlayer().equals(p2)) {
                 drawing.append(inGreen("OOOO"));
-            } else {
-                System.out.println(cell.getPlayer().equals(p1) || cell.getPlayer().equals(p2));
-                System.out.println(cell);
-                System.out.println(cell.getPlayer());
-                System.out.println("triggered");
             }
         }
         drawing.append(inBlue("||"));
