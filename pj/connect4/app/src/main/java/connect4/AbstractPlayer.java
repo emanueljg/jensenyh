@@ -11,7 +11,7 @@ public abstract class AbstractPlayer {
         this.game = game;
     }
 
-    public abstract void act();
+    public abstract Xy act();
 
     @Override
     public String toString() {

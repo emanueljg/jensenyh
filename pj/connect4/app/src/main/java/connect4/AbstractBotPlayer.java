@@ -16,14 +16,14 @@ public abstract class AbstractBotPlayer extends AbstractPlayer {
     public abstract int chooseColumn();
 
     @Override
-    public void act() {
+    public Xy act() {
         if (getGame().getDoPrint()) {
             System.out.printf("%s is thinking...\n", this);
             try {
                 Thread.sleep(3000);
             } catch (Exception ignore) { }
         }
-        getBoard().drop(this, chooseColumn());
+        return getBoard().drop(this, chooseColumn());
     }
 
     public Random getRandom() {

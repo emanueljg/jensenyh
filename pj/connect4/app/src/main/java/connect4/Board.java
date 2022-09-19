@@ -142,26 +142,44 @@ public class Board {
     private void drawRow(StringBuilder drawing,
                          AbstractPlayer p1,
                          AbstractPlayer p2,
-                         Cell[] row) {
+                         Cell[] row,
+                         Xy lastMove) {
         for (Cell cell : row) {
             drawing.append(inBlue("||"));
             if (cell.isEmpty()) {
                 drawing.append(inWhite("...."));
             } else if (cell.getPlayer().equals(p1)) {
-                drawing.append(inPurple("XXXX"));
+                if (lastMove != null && cell.getXy().equals(lastMove)) {
+                    drawing.append(inPurple("XX"));
+                    drawing.append(inWhite("!!"));
+                } else {
+                    drawing.append(inPurple("XXXX"));
+                }
             } else if (cell.getPlayer().equals(p2)) {
-                drawing.append(inGreen("OOOO"));
+                if (lastMove != null && cell.getXy().equals(lastMove)) {
+                    drawing.append(inGreen("OO"));
+                    drawing.append(inWhite("!!"));
+                } else {
+                    drawing.append(inGreen("OOOO"));
+                }
             }
         }
         drawing.append(inBlue("||"));
         drawing.append("\n");
     }
 
-    public void draw(AbstractPlayer p1, AbstractPlayer p2) {
+    private void drawRow(StringBuilder drawing,
+                         AbstractPlayer p1,
+                         AbstractPlayer p2,
+                         Cell[] row) {
+        drawRow(drawing, p1, p2, row, null);
+    }
+
+    public void draw(AbstractPlayer p1, AbstractPlayer p2, Xy lastMove) {
         StringBuilder drawing = new StringBuilder();
         for (Cell[] row : this.board) {
             drawVerticalDelim(drawing);
-            drawRow(drawing, p1, p2, row);
+            drawRow(drawing, p1, p2, row, lastMove);
             drawRow(drawing, p1, p2, row);
         }
         drawVerticalDelim(drawing);

@@ -15,6 +15,10 @@ public class Cell {
         this(point, null);
     }
 
+    public Xy getXy() {
+        return this.point;
+    }
+
     public AbstractPlayer getPlayer() {
         return this.player.get();
     }

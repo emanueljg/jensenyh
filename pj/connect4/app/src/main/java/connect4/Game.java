@@ -137,18 +137,25 @@ public class Game {
     }
 
     public Optional<AbstractPlayer> doGameLoop() {
+        Xy lastMove = null;
         while (true) {
             for (AbstractPlayer p : this.players) {
                 if (this.doPrint) {
-                    this.board.draw(this.p1, this.p2);
+                    this.board.draw(this.p1, this.p2, lastMove);
                     System.out.printf("%s's turn.\n", p);
                 }
-                p.act();
+                lastMove = p.act();
                 if (this.board.isWonBy(p)) {
-                    if (this.doPrint) System.out.printf("%s won!\n", p);
+                    if (this.doPrint) {
+                        this.board.draw(this.p1, this.p2, lastMove);
+                        System.out.printf("%s won!\n", p);
+                    }
                     return Optional.of(p);
                 } if (this.board.isTie(p)) {
-                    if (this.doPrint) System.out.println("It's a tie.");
+                    if (this.doPrint) {
+                        this.board.draw(this.p1, this.p2, lastMove);
+                        System.out.println("It's a tie.");
+                    }
                     return Optional.empty();
                 }
             }

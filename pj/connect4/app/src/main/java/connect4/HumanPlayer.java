@@ -8,7 +8,7 @@ public class HumanPlayer extends AbstractPlayer {
     }
     
     @Override
-    public void act() {
+    public Xy act() {
         int col;
         do {
             col = new Prompter.Builder<Integer>(
@@ -18,6 +18,6 @@ public class HumanPlayer extends AbstractPlayer {
                 .mappedChecker(x -> x >= 0 && x < getCols())
                 .prompt();
         } while (!getBoard().isDroppable(col));
-        getBoard().drop(this, col);
+        return getBoard().drop(this, col);
     }
 }
