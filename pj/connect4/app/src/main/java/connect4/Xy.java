@@ -3,7 +3,6 @@ package connect4;
 import java.util.Arrays;
 import java.util.HashSet;
 
-
 public record Xy(int x, int y) {
 
     public Xy[] extend(Xy direction, int length) {

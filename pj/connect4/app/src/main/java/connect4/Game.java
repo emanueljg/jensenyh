@@ -19,6 +19,8 @@ public class Game {
         this.doPrint = doPrint;
     }
 
+    // GETTERS & SETTERS
+
     public boolean getDoPrint() {
         return this.doPrint;
     }
@@ -30,7 +32,6 @@ public class Game {
     public void setPlayerOne(AbstractPlayer player) {
         this.p1 = player;
         this.players[0] = this.p1;
-
     }
 
     public void setPlayerTwo(AbstractPlayer player) {
@@ -42,6 +43,39 @@ public class Game {
         return me.equals(this.p1) ? this.p2 : this.p1;
     }
 
+    // MENU METHODS
+
+    public static void doMainMenu() {
+        LinkedHashMap<String, Runnable> mainMenuChoices = new LinkedHashMap<>();
+        mainMenuChoices.put("play", () -> start());
+        mainMenuChoices.put("analyze bot W/L", () -> doAnalyze());
+        mainMenuChoices.put("exit", () -> System.exit(0));
+        new Prompter.Builder<Runnable>("Main menu")
+            .defaultValue("play")
+            .choice(mainMenuChoices)
+            .prompt()
+            .run();
+    }
+
+    public static void start() {
+        Game.fromInteractive().doMatchLoop();
+    }
+
+    public static Game fromInteractive() {
+        System.out.println("4 i rad");
+        System.out.println("-------");
+
+        int rows = getInteractiveDimensions("row", "6");
+        int cols = getInteractiveDimensions("col", "7");
+        boolean doPrint = getInteractiveDoPrint();
+        Game game = new Game(new Board(rows, cols), doPrint);
+        game.setPlayerOne(getInteractivePlayer(1, game));
+        game.setPlayerTwo(getInteractivePlayer(2, game));
+
+        System.out.println("Starting game...\n");
+        return game;
+    }
+
     public static int getInteractiveDimensions(String dim, String defaultValue) {
         return new Prompter.Builder<Integer>(
             String.format("Enter # of board %ss", dim))
@@ -50,6 +84,16 @@ public class Game {
             .mappedChecker(x -> x > 0)
             .prompt();
     }   
+
+    public static boolean getInteractiveDoPrint() {
+        LinkedHashMap<String, Boolean> yesOrNo = new LinkedHashMap<>();
+        yesOrNo.put("yes", true);
+        yesOrNo.put("no", false);
+        return new Prompter.Builder<Boolean>("Print output?")
+            .defaultValue("yes")
+            .choice(yesOrNo)
+            .prompt();
+    }
 
     public static AbstractPlayer getInteractivePlayer(int playerN, Game game) {
         String name = new Prompter.Builder<String>(
@@ -68,32 +112,6 @@ public class Game {
             .prompt();
     }
 
-    public static boolean getInteractiveDoPrint() {
-        LinkedHashMap<String, Boolean> yesOrNo = new LinkedHashMap<>();
-        yesOrNo.put("yes", true);
-        yesOrNo.put("no", false);
-        return new Prompter.Builder<Boolean>("Print output?")
-            .defaultValue("yes")
-            .choice(yesOrNo)
-            .prompt();
-    }
-
-    public static void doMainMenu() {
-        LinkedHashMap<String, Runnable> mainMenuChoices = new LinkedHashMap<>();
-        mainMenuChoices.put("play", () -> start());
-        mainMenuChoices.put("analyze bot W/L", () -> doAnalyze());
-        mainMenuChoices.put("exit", () -> System.exit(0));
-        new Prompter.Builder<Runnable>("Main menu")
-            .defaultValue("play")
-            .choice(mainMenuChoices)
-            .prompt()
-            .run();
-    }
-
-    public static void start() {
-        Game.fromInteractive().doMatchLoop();
-    }
-
     public void doMatchLoop() {
         doGameLoop();
         LinkedHashMap<String, Runnable> postMatchChoices = new LinkedHashMap<>();
@@ -107,21 +125,6 @@ public class Game {
             .choice(postMatchChoices)
             .prompt()
             .run();
-    }
-
-    public static Game fromInteractive() {
-        System.out.println("4 i rad");
-        System.out.println("-------");
-
-        int rows = getInteractiveDimensions("row", "6");
-        int cols = getInteractiveDimensions("col", "7");
-        boolean doPrint = getInteractiveDoPrint();
-        Game game = new Game(new Board(rows, cols), doPrint);
-        game.setPlayerOne(getInteractivePlayer(1, game));
-        game.setPlayerTwo(getInteractivePlayer(2, game));
-
-        System.out.println("Starting game...\n");
-        return game;
     }
 
     public Optional<AbstractPlayer> doGameLoop() {
@@ -171,5 +174,4 @@ public class Game {
         System.out.printf("ties: %d\n", ties);
         System.out.println("-".repeat(50));
     }
-
 }

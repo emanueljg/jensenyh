@@ -3,16 +3,16 @@ package connect4;
 import java.util.Optional;
 
 public class Cell {
-    private Xy coords;
+    private Xy point;
     private Optional<AbstractPlayer> player;
 
-    public Cell(Xy coords, AbstractPlayer player) {
-        this.coords = coords;
+    public Cell(Xy point, AbstractPlayer player) {
+        this.point = point;
         this.player = Optional.ofNullable(player);
     }
 
-    public Cell(Xy coords) {
-        this(coords, null);
+    public Cell(Xy point) {
+        this(point, null);
     }
 
     public AbstractPlayer getPlayer() {
