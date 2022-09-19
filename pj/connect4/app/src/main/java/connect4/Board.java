@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.stream.IntStream;
+import java.util.function.Function;
 
 public class Board {
     private static final Xy[] DELTAS = new Xy[]{
@@ -139,6 +140,22 @@ public class Board {
         drawing.append("\n");
     }
 
+    private void drawPlayerCell(StringBuilder drawing, 
+                                Cell cell,
+                                AbstractPlayer p,
+                                String identifier,
+                                Function<String, String> painter,
+                                Xy lastMove) {
+        if (cell.getPlayer().equals(p)) {
+            if (lastMove != null && cell.getXy().equals(lastMove)) {
+                drawing.append(painter.apply(identifier.repeat(2)));
+                drawing.append(inWhite("!".repeat(2)));
+            } else {
+                drawing.append(painter.apply(identifier.repeat(4)));
+            }
+        }
+    }
+
     private void drawRow(StringBuilder drawing,
                          AbstractPlayer p1,
                          AbstractPlayer p2,
@@ -148,20 +165,9 @@ public class Board {
             drawing.append(inBlue("||"));
             if (cell.isEmpty()) {
                 drawing.append(inWhite("...."));
-            } else if (cell.getPlayer().equals(p1)) {
-                if (lastMove != null && cell.getXy().equals(lastMove)) {
-                    drawing.append(inPurple("XX"));
-                    drawing.append(inWhite("!!"));
-                } else {
-                    drawing.append(inPurple("XXXX"));
-                }
-            } else if (cell.getPlayer().equals(p2)) {
-                if (lastMove != null && cell.getXy().equals(lastMove)) {
-                    drawing.append(inGreen("OO"));
-                    drawing.append(inWhite("!!"));
-                } else {
-                    drawing.append(inGreen("OOOO"));
-                }
+            } else {
+                drawPlayerCell(drawing, cell, p1, "X", s -> inPurple(s), lastMove);
+                drawPlayerCell(drawing, cell, p2, "O", s -> inGreen(s), lastMove);
             }
         }
         drawing.append(inBlue("||"));
