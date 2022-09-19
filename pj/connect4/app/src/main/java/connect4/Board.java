@@ -101,42 +101,12 @@ public class Board {
         return !isWonBy(player) && isFull();
     }
 
-    private static String inBlue(String str) {
-        return ConsoleColors.BLUE
-            + ConsoleColors.BLUE_BACKGROUND
-            + str
-            + ConsoleColors.RESET;
-    };
-
-    private static String inPurple(String str) {
-        return ConsoleColors.PURPLE
-            + ConsoleColors.PURPLE_BACKGROUND
-            + str
-            + ConsoleColors.RESET;
-    };
-
-
-    private static String inGreen(String str) {
-        return ConsoleColors.GREEN
-            + ConsoleColors.GREEN_BACKGROUND
-            + str
-            + ConsoleColors.RESET;
-    };
-
-    private static String inWhite(String str) {
-        return ConsoleColors.WHITE
-            + ConsoleColors.WHITE_BACKGROUND
-            + str
-            + ConsoleColors.RESET;
-
-    };
-
     private void drawVerticalDelim(StringBuilder drawing) {
         int cols = getCols();
         int pipes = cols * 2 + 2;
         int total = cols * 4 + pipes;
         String line = "-".repeat(total);
-        drawing.append(inBlue(line));
+        drawing.append(BoardColors.board(line));
         drawing.append("\n");
     }
 
@@ -149,7 +119,7 @@ public class Board {
         if (cell.getPlayer().equals(p)) {
             if (lastMove != null && cell.getXy().equals(lastMove)) {
                 drawing.append(painter.apply(identifier.repeat(2)));
-                drawing.append(inWhite("!".repeat(2)));
+                drawing.append(BoardColors.bg("!".repeat(2)));
             } else {
                 drawing.append(painter.apply(identifier.repeat(4)));
             }
@@ -162,15 +132,15 @@ public class Board {
                          Cell[] row,
                          Xy lastMove) {
         for (Cell cell : row) {
-            drawing.append(inBlue("||"));
+            drawing.append(BoardColors.board("||"));
             if (cell.isEmpty()) {
-                drawing.append(inWhite("...."));
+                drawing.append(BoardColors.bg("...."));
             } else {
-                drawPlayerCell(drawing, cell, p1, "X", s -> inPurple(s), lastMove);
-                drawPlayerCell(drawing, cell, p2, "O", s -> inGreen(s), lastMove);
+                drawPlayerCell(drawing, cell, p1, "X", BoardColors::p1, lastMove);
+                drawPlayerCell(drawing, cell, p2, "O", BoardColors::p2, lastMove);
             }
         }
-        drawing.append(inBlue("||"));
+        drawing.append(BoardColors.board("||"));
         drawing.append("\n");
     }
 
