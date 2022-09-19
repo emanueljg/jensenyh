@@ -47,32 +47,36 @@ public class Game {
 
     public static void doMainMenu() {
         LinkedHashMap<String, Runnable> mainMenuChoices = new LinkedHashMap<>();
-        mainMenuChoices.put("play", () -> start());
+        mainMenuChoices.put("quick match", () -> quickMatch());
+        mainMenuChoices.put("custom match...", () -> customMatch());
         mainMenuChoices.put("analyze bot W/L", () -> doAnalyze());
         mainMenuChoices.put("exit", () -> System.exit(0));
         new Prompter.Builder<Runnable>("Main menu")
-            .defaultValue("play")
+            .defaultValue("quick match")
             .choice(mainMenuChoices)
             .prompt()
             .run();
     }
 
-    public static void start() {
-        Game.fromInteractive().doMatchLoop();
+    public static void quickMatch() {
+        Game game = new Game(new Board(6, 7), true);
+        game.setPlayerOne(getInteractivePlayer(1, game, "Player 1"));
+        game.setPlayerTwo(getInteractivePlayer(2, game, "Player 2"));
+        game.doMatchLoop();
+    }
+
+    public static void customMatch() {
+        Game game = Game.fromInteractive();
+        game.doMatchLoop();
     }
 
     public static Game fromInteractive() {
-        System.out.println("4 i rad");
-        System.out.println("-------");
-
         int rows = getInteractiveDimensions("row", "6");
         int cols = getInteractiveDimensions("col", "7");
         boolean doPrint = getInteractiveDoPrint();
         Game game = new Game(new Board(rows, cols), doPrint);
         game.setPlayerOne(getInteractivePlayer(1, game));
         game.setPlayerTwo(getInteractivePlayer(2, game));
-
-        System.out.println("Starting game...\n");
         return game;
     }
 
@@ -95,21 +99,27 @@ public class Game {
             .prompt();
     }
 
-    public static AbstractPlayer getInteractivePlayer(int playerN, Game game) {
-        String name = new Prompter.Builder<String>(
-            String.format("Enter player %d name", playerN))
+    public static String getInteractivePlayerName(int n) {
+        return new Prompter.Builder<String>(
+            String.format("Enter player %d name", n))
             .checker(answer -> !answer.equals(""))
             .prompt();
+    }
 
+    public static AbstractPlayer getInteractivePlayer(int n, Game game, String name) {
         LinkedHashMap<String, AbstractPlayer> playerTypes = new LinkedHashMap<>();
         playerTypes.put("human", new HumanPlayer(name, game));
         playerTypes.put("dumb bot", new DumbBotPlayer(name, game));
         playerTypes.put("smart bot", new SmartBotPlayer(name, game));
 
         return new Prompter.Builder<AbstractPlayer>(
-            String.format("Choose player %d type", playerN))
+            String.format("Choose player %d type", n))
             .choice(playerTypes)
             .prompt();
+    }
+
+    public static AbstractPlayer getInteractivePlayer(int n, Game game) {
+        return getInteractivePlayer(n, game, getInteractivePlayerName(n));
     }
 
     public void doMatchLoop() {
@@ -117,7 +127,6 @@ public class Game {
         LinkedHashMap<String, Runnable> postMatchChoices = new LinkedHashMap<>();
         postMatchChoices.put("play one more", () -> {getBoard().clear();
                                                      doMatchLoop();});
-        postMatchChoices.put("game with new settings", () -> start());
         postMatchChoices.put("back to main menu", () -> doMainMenu());
         postMatchChoices.put("exit", () -> System.exit(0));
         new Prompter.Builder<Runnable>(
