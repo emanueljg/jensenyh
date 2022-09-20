@@ -40,16 +40,16 @@ public class Board {
         return this.size.x();
     }
 
-    public Cell getCell(Xy place) {
-        return this.board[place.y()][place.x()];
+    public Cell getCell(Xy point) {
+        return this.board[point.y()][point.x()];
     }
 
     public void removeCell(Xy point) {
         setCell(point, null);
     }
 
-    private void setCell(Xy place, AbstractPlayer player) {
-        getCell(place).setPlayer(player);
+    private void setCell(Xy point, AbstractPlayer player) {
+        getCell(point).setPlayer(player);
     }
 
     public void clear() {
