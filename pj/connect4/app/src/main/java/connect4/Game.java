@@ -48,7 +48,7 @@ public class Game {
     public static void doMainMenu() {
         LinkedHashMap<String, Runnable> mainMenuChoices = new LinkedHashMap<>();
         mainMenuChoices.put("quick match", () -> quickMatch());
-        mainMenuChoices.put("custom match...", () -> customMatch());
+        mainMenuChoices.put("custom match", () -> customMatch());
         mainMenuChoices.put("analyze bot W/L", () -> doAnalyze());
         mainMenuChoices.put("exit", () -> System.exit(0));
         new Prompter.Builder<Runnable>("Main menu")
