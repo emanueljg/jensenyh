@@ -1,6 +1,6 @@
-4-i-rad på VG-nivå. Köres enklast med `gradle run`. 
+4-i-rad på VG-nivå. Körs enklast med `gradle run`. Annars kan den också köras manuellt med `App::main`. 
 
-Genvägar:
+git-genvägar:
 ```bash
 # https
 git clone https://github.com/emanueljg/jensenyh.git
