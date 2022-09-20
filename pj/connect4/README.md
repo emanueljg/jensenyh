@@ -9,3 +9,9 @@ git clone git@github.com:emanueljg/jensenyh.git
 # Github CLI
 gh repo clone emanueljg/jensenyh
 ```
+
+unix-genväg för att "packa upp" connect4 och inget annat:
+```bash
+# anta att repot finns i working dir
+cp -r jensenyh/pj/connect4 . && rm -r jensenyh
+```
