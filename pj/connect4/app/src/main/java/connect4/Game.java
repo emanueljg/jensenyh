@@ -73,8 +73,9 @@ public class Game {
     public static Game fromInteractive() {
         int rows = getInteractiveDimensions("row", "6");
         int cols = getInteractiveDimensions("col", "7");
+        int winLength = getInteractiveWinLength();
         boolean doPrint = getInteractiveDoPrint();
-        Game game = new Game(new Board(rows, cols), doPrint);
+        Game game = new Game(new Board(rows, cols, winLength), doPrint);
         game.setPlayerOne(getInteractivePlayer(1, game));
         game.setPlayerTwo(getInteractivePlayer(2, game));
         return game;
@@ -88,6 +89,15 @@ public class Game {
             .mappedChecker(x -> x > 0)
             .prompt();
     }   
+
+    public static int getInteractiveWinLength() {
+        return new Prompter.Builder<Integer>(
+            "Enter the winning length of a row")
+            .defaultValue("4")
+            .mapper(answer -> Integer.parseInt(answer))
+            .mappedChecker(x -> x > 0)
+            .prompt();
+    }
 
     public static boolean getInteractiveDoPrint() {
         LinkedHashMap<String, Boolean> yesOrNo = new LinkedHashMap<>();
